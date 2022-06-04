@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { getAllThoughts, getThoughtById, createThought, updateThought, deleteThought } = require('../../controllers/thought-controller');
+const { getAllThoughts, getThoughtById, createThought, updateThought, deleteThought } = require('../../controllers/thought-controller.js');
 // need NEWREACTION and REMOVEREACTION 
 
 
