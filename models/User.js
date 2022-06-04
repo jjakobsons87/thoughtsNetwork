@@ -12,20 +12,20 @@ const UserSchema = new Schema(
             type: String,
             required: "You must provide an email address!",
             unique: true,
-            validate: [ isEmail, 'invalid email' ]
+            // validate: [ isEmail, 'invalid email' ]
         },
-        thoughts: [
-            {
-                type: Schema.Types.thoughtId,
-                ref: 'Thought'
-            }
-        ],
-        friends: [
-            {
-                type: Schema.Types.userId,
-                ref: 'User'
-            }
-        ]
+        // thoughts: [
+        //     {
+        //         type: Schema.Types.thoughtId,
+        //         ref: 'Thought'
+        //     }
+        // ],
+        // friends: [
+        //     {
+        //         type: Schema.Types.userId,
+        //         ref: 'User'
+        //     }
+        // ]
     },
     {
         toJSON: {
