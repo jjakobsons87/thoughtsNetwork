@@ -1,6 +1,32 @@
 const { Thought, User } = require('../models');
 
 const thoughtController = {
+    // get all thoughts 
+    getAllThoughts (req, res) {
+        Thoughts.find({})
+        .then(dbUserData => res.json(dbUserData))
+        .catch(err => {
+            console.log(err);
+            res.status(400).json(err);
+        });
+    },
+
+    // get thought by ID
+    getThoughtById({ params }, res) {
+        Thought.findOne({ _id: params.id })
+        .then(dbThoughtData => {
+            if (!dbThoughtData) {
+                res.status(404).json({ message: 'No Thought found with this id!' });
+                return;
+            }
+            res.json(dbThoughtData);
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(400).json(err);
+        });
+    },
+
     // add new thought 
     createThought({ params, body }, res) {
         console.log(body);
@@ -63,6 +89,15 @@ const thoughtController = {
     },
 
     // remove reaction 
+    removeReaction({ params }, res) {
+        Thought.findOneAndUpdate(
+            { _id: params.thoughtId },
+            { $pull: { reactions: { reactionId: params.reactionId } } },
+            { new: true }
+        )
+        .then(dbUserData => res.json(dbUserData))
+        .catch(err => res.json(err));
+    }
 }
 
 module.exports = thoughtController; 
