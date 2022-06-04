@@ -3,8 +3,8 @@ const { Thought, User } = require('../models');
 const thoughtController = {
     // get all thoughts 
     getAllThoughts (req, res) {
-        Thoughts.find({})
-        .then(dbUserData => res.json(dbUserData))
+        Thought.find({})
+        .then(dbThoughtData => res.json(dbThoughtData))
         .catch(err => {
             console.log(err);
             res.status(400).json(err);
@@ -13,7 +13,7 @@ const thoughtController = {
 
     // get thought by ID
     getThoughtById({ params }, res) {
-        Thought.findOne({ _id: params.id })
+        Thought.findOne({ _id: params.thoughtId })
         .then(dbThoughtData => {
             if (!dbThoughtData) {
                 res.status(404).json({ message: 'No Thought found with this id!' });
