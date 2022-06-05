@@ -14,15 +14,10 @@ router.route('/:userId').post(createThought);
 // update/remove thought 
 router.route("/:userId/:thoughtId").put(updateThought).delete(removeThought);
 
-// remove thought
-// router.route('/:userId/:thoughtId').delete(removeThought);
+//  post new and 
+router.route('/:thoughtId/reactions').post(addReaction);
 
-// // add reaction 
-// router.route('/:userId/:thoughtId').put(addReaction).delete(removeReaction);
-
-//  post new and delete reaction
-router.route('/:thoughtId/reactions').post(addReaction)
-
-// add delete reaction
+// delete reaction
+router.route('/:thoughtId/reactions/:reactionId').delete(removeReaction);
 
 module.exports = router;
