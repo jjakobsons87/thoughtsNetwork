@@ -69,7 +69,48 @@ const userController = {
                 }
                 res.json(dbUserData);
             })
-            .catch(err => res.status(400)/json(err));
+            .catch(err => res.status(400).json(err));
+    },
+
+    // add friend 
+    // addFriend({ params }, res) {
+    //     User.findOneAndUpdate(
+    //         { _id: params.id },
+    //         { friends: 'User' },
+    //         { new: true }
+    //     )
+    //     .then(dbUserData => {
+    //         if (!dbUserData) {res.status(404).json({ message: 'No User found with this id!'});
+    //         return;
+    //     }
+    //     res.json(dbUserData);
+    //     })
+    //     .catch(err => res.status(400).json(err));
+    // },
+
+    addFriend({ params }, res) {
+        User.findOneAndUpdate(
+            { _id: params.id },
+            { $addToSet: { friends: params.friendId }},
+            { new: true }
+        )
+        .then((dbUserData) => res.json(dbUserData))
+        .catch((err) => res.status(400).json(err));
+    },
+
+    // delete Friend
+    removeFriend({ params }, res) {
+        User.findOneAndUpdate(
+            { _id: params.id },
+            { $pull: { friends: params.friendId }},{ new: true })
+        .then((dbUserData) => {
+        if (!dbUserData) {
+            res.status(404).json({ message: "No such User with this id!" });
+            return;
+        }
+        res.json(dbUserData);
+        })
+        .catch((err) => res.status(400).json(err));
     }
 }
 
